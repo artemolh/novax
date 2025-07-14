@@ -1,0 +1,158 @@
+{
+  "header": {
+    "about": "Biz haqimizda",
+    "structure": "Ish tartibi",
+    "team": "Jamoa",
+    "pricing": "Narxlar",
+    "contact": "Loyihani muhokama qilish"
+  },
+  "main": {
+    "BigPictureText1": "Biznesingiz uchun",
+    "BigPictureText2": "ishlaydigan saytlar",
+    "BigPictureText3": "yaratamiz"
+  },
+  "main_block2": {
+    "AndPictureText": "3 000 000 so‘mdan boshlab",
+    "AndPictureh1": "Bitta sahifali sayt",
+    "AndPictureText2": "Bitta maqsadga,",
+    "AndPictureText3": "erishish uchun yaratilgan lo‘nda sayt",
+    "AndPictureText_block2": "8 000 000 so‘mdan boshlab",
+    "AndPictureh2": "Korporativ sayt",
+    "AndPictureText4": "O‘ylangan tuzilishga ega ishonchli raqamli kompaniya yuzi",
+    "AndPictureText_block3": "12 000 000 so‘mdan boshlab",
+    "AndPictureh3": "Internet do‘kon",
+    "AndPictureText5": "Qulay katalog, savat va to‘lov tizimiga ega funksional sayt"
+  },
+  "main_block3": {
+    "title": [
+      "Raqamli mahsulotlar",
+      "samaradorligini",
+      "oshiramiz"
+    ],
+    "block1_title": [
+      "Biznes va maqsadlarni",
+      "tushunamiz"
+    ],
+    "block1_desc": "Saytingiz natija berishi uchun sizning sohangiz, vazifalaringiz va auditoriyangizni o‘rganamiz",
+    "block2_title": [
+      "Aql bilan ishlab",
+      "chiqamiz"
+    ],
+    "block2_desc": "Mahsulot qiymatini oshiradigan va savdoga olib boradigan tuzilma, dizayn hamda matnlar yaratamiz",
+    "block3_title": [
+      "Qulay va chiroyli",
+      "qilamiz"
+    ],
+    "block3_desc": "Tushunarli mantiq va vizual ifodaviylikni uyg‘unlashtiramiz — sayt ishonch uyg‘otadi va ortiqcha bosishlarsiz ishlaydi",
+    "block4_title": [
+      "Ishga tushiramiz va",
+      "qo‘llab-quvvatlaymiz"
+    ],
+    "block4_desc": "Moslashuvchan sayt tuzilmasidan tortib, integratsiyalar va ishga tushirilgandan keyingi texnik yordamgacha hamma narsani o‘z zimmamizga olamiz"
+  },
+  "process": {
+    "title": "Sayt ustida ishlash strukturasi",
+    "description": "Ishimiz aniq tizim asosida olib boriladi: biznesni oʻrganamiz, maqsadlarni belgilaymiz, tuzilmani loyihalashtiramiz, dizayn yaratamiz va uni dasturlashda amalga oshiramiz. Ishga tushirishdan oldin saytni sinchiklab test qilamiz va barcha texnik jihatlarni sozlaymiz. Nashrdan soʻng ham aloqada qolamiz — qoʻllab-quvvatlash va rivojlantirishni taʼminlaymiz. Hech qanday tartibsizliksiz — faqat tushunarli bosqichlar va natija.",
+    "button": "Loyihani muhokama qilish",
+    "step": "bosqich",
+    "stages": [
+      {
+        "num": "01-bosqich ",
+        "title": "Tahlil va vazifalarni belgilash",
+        "desc": "Intervyu va brifing oʻtkazamiz. Biznes, auditoriya, maqsadlar va raqobatchilarni oʻrganamiz. Strategiyani shakllantiramiz va sayt qanday boʻlishi kerakligini aniqlaymiz."
+      },
+      {
+        "num": "02-bosqich ",
+        "title": "Tuzilmani loyihalash",
+        "desc": "Sayt arxitekturasi va sahifalar tuzilmasini foydalanuvchi uchun qulay boʻlishi uchun ishlab chiqamiz."
+      },
+      {
+        "num": "03-bosqich ",
+        "title": "UI/UX-dizayn",
+        "desc": "Zamonaviy va qulay dizayn ishlab chiqamiz — u biznesingizni ajratib koʻrsatadi va saytni ishlatishni osonlashtiradi."
+      },
+      {
+        "num": "04-bosqich ",
+        "title": "Frontend va backend ishlab chiqish",
+        "desc": "Dizaynni kodga aylantiramiz, barcha funksiyalarni, integratsiyalarni va moslashuvchanlikni amalga oshiramiz."
+      },
+      {
+        "num": "05-bosqich ",
+        "title": "Testlash va ishga tushirishga tayyorgarlik",
+        "desc": "Saytni barcha qurilmalarda sinovdan oʻtkazamiz, xatolarni tuzatamiz, analitikani sozlaymiz va eʼlon qilishga tayyorlaymiz."
+      }
+    ]
+  },
+  "team": {
+    "title": "Gʻoyalarni\nhaqiqatga aylantiramiz",
+    "description": "Biz natija beradigan saytlar yaratadigan dizaynerlar, ishlab chiquvchilar va strateglardan iborat jamoamiz. Har bir loyiha biz uchun — individual yondashuv va ijodiy yechim talab qiladigan noyob tarix.",
+    "members": [
+      {
+        "name": "Petin Sergey",
+        "role": "CEO"
+      },
+      {
+        "name": "Aleksey Smirnov",
+        "role": "Marketing va tadqiqotlar"
+      },
+      {
+        "name": "Olga Kuznetsova",
+        "role": "Backend ishlab chiqish"
+      },
+      {
+        "name": "Ivan Ivanov",
+        "role": "Frontend ishlab chiqish"
+      }
+    ]
+  },
+  "pricing": {
+    "title": "Sayt ishlab chiqish\nnarxi",
+    "button": "Loyihani muhokama qilish",
+    "one": {
+      "duration": "10 kundan boshlab",
+      "title": "Bitta sahifali sayt",
+      "desc": "Bitta maqsadga yo‘naltirilgan ixcham sayt — xizmat, mahsulot yoki tadbirni taqdim etish uchun ideal yechim",
+      "list1": "Individual dizayn",
+      "list2": "O‘ylab chiqilgan tuzilma",
+      "list3": "Adaptiv sahifa tartibi"
+    },
+    "corp": {
+      "duration": "20 kundan boshlab",
+      "title": "Korporativ sayt",
+      "desc": "Yaxshi o‘ylangan tuzilma, zamonaviy dizayn va biznes maqsadlariga yo‘naltirilgan ishonchli raqamli kompaniya yuzi",
+      "list1": "Saytning savodli arxitekturasi",
+      "list2": "Brendga mos interfeys",
+      "list3": "Oddiy administratsiya"
+    },
+    "shop": {
+      "duration": "30 kundan boshlab",
+      "title": "Internet do‘kon",
+      "desc": "Barqaror savdolar va onlayn biznesni rivojlantirish uchun qulay katalog, savat va to‘lov tizimiga ega funksional sayt",
+      "list1": "Mahsulotlarni boshqarish",
+      "list2": "Mahsulotlar va filtrlari bilan katalog",
+      "list3": "Onlayn kassa ulash"
+    }
+  },
+  
+  "footer": {
+    "banner_title": "Sizning",
+    "banner_highlight": "saytingizni bepul",
+    "banner_suffix": "tahlil qilamiz",
+    "brief_button": "Brifni to‘ldirish",
+    "description": "Biz mijozlarni jalb qilish, xizmatlaringizni samarali taqdim etish va bozorda mavqeingizni mustahkamlashga yordam beradigan saytlar yaratamiz",
+    "copyright": "Boostim 2025 | barcha huquqlar himoyalangan",
+    "nav_title": "Navigatsiya",
+    "nav_about": "Biz haqimizda",
+    "nav_process": "Ish tartibi",
+    "nav_team": "Jamoa",
+    "nav_pricing": "Narxlar",
+    "services_title": "Xizmatlar",
+    "service_one": "Bitta sahifali sayt",
+    "service_corp": "Korporativ sayt",
+    "service_shop": "Internet do‘kon",
+    "contacts_title": "Kontaktlar",
+    "contacts_phone": "+998 (94) 904-20-54",
+    "contacts_email": "hello@boostim.uz",
+    "contacts_telegram": "boostim_uz"
+  }
+}

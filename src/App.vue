@@ -7,20 +7,20 @@ import WorkStagesAccordion from './components/WorkStagesAccordion.vue'
 import TeamSlider from './components/TeamSlider.vue'
 import PricingSection from './components/PricingSection.vue'
 import FooterSection from './components/FooterSection.vue'
+
 </script>
 
 <template>
   <div class="min-h-screen bg-light font-inter">
-    <Header />
-    <main class="max-w-7xl mx-auto">
+    <Header/>
+    <main>
       <HeroSection />
       <ServicesSection />
       <AdvantagesSection />
       <WorkStagesAccordion />
       <TeamSlider />
       <PricingSection />
-      <FooterSection />
-      <!-- Здесь будут остальные секции -->
+      <FooterSection /> 
     </main>
   </div>
 </template>

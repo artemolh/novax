@@ -1,66 +1,125 @@
 <template>
-  <section class="w-full my-12" id="team">
-    <div class="mb-6 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-      <div>
-        <h2 class="font-bold text-2xl mb-2">Воплощаем<br>идеи в реальность</h2>
+  <section class="w-full py-6 bg-white mt-20 rounded-[15px] min-h-[800px]" id="team">
+    <div class="flex flex-col gap-4 px-4 md:px-10 mb-10 md:flex-row md:gap-12">
+      <div class="md:w-1/2">
+        <h2 class="font-medium text-[28px] sm:text-[32px] md:text-[35px] leading-[1.2] text-black mt-8">
+          {{ t('team.title') }}
+        </h2>
       </div>
-      <p class="text-gray-600 max-w-xl text-sm">Мы — команда дизайнеров, разработчиков и стратегов, создающих сайты, которые приносят результат. Каждый проект для нас — уникальная история, требующая индивидуального подхода и творческого решения</p>
+      <div class="md:w-1/2 flex items-center mt-4 md:mt-8 pr-4">
+        <p class="text-[#878C91] text-sm md:text-base leading-relaxed text-right md:text-left max-w-[520px]">
+          {{ t('team.description') }}
+        </p>
+      </div>
     </div>
-    <div class="relative">
-      <button @click="prev" :disabled="page === 0" class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white border border-gray rounded-full w-9 h-9 flex items-center justify-center shadow hover:bg-primary/30 disabled:opacity-40">
-        <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="#181A1B" stroke-width="2" d="M15 6l-6 6 6 6"/></svg>
-      </button>
-      <div class="overflow-hidden">
-        <div class="flex transition-transform duration-300" :style="sliderStyle">
-          <div v-for="member in visibleMembers" :key="member.name+member.role" class="min-w-[220px] max-w-xs mx-2 bg-white rounded-2xl shadow p-4 flex flex-col items-center">
-            <img :src="member.photo" alt="photo" class="w-32 h-40 object-cover rounded-xl mb-3" />
-            <div class="font-semibold">{{ member.name }}</div>
-            <div class="text-gray-500 text-sm">{{ member.role }}</div>
+
+    <div ref="carousel"
+      class="team-wrapper flex md:grid md:grid-cols-4 gap-4 px-4 sm:px-6 md:px-10 mt-10 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none scrollbar-thin scrollbar-thumb-gray-300">
+
+      <div v-for="(member, i) in members" :key="i"
+        class="flex justify-center md:block snap-center md:snap-none min-w-[85vw] sm:min-w-[60vw] md:min-w-0">
+        <div
+          class="team-card bg-white rounded-[15px] flex flex-col items-start text-left w-full max-w-[365px] h-full box-border">
+          <img :src="member.photo" alt="photo" class="team-img rounded-[15px] mb-4 w-full object-contain" />
+          <div class="team-name font-medium text-black ml-2 text-base md:text-lg">
+            {{ t(`team.members[${i}].name`) }}
+          </div>
+          <div class="team-role text-[#878C91] text-sm md:text-base ml-2">
+            {{ t(`team.members[${i}].role`) }}
           </div>
         </div>
       </div>
-      <button @click="next" :disabled="page === maxPage" class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white border border-gray rounded-full w-9 h-9 flex items-center justify-center shadow hover:bg-primary/30 disabled:opacity-40">
-        <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="#181A1B" stroke-width="2" d="M9 6l6 6-6 6"/></svg>
+    </div>
+
+    <div class="flex justify-center items-center mt-10 md:hidden">
+      <button @click="scrollLeft"
+        class="mr-2 w-10 h-10 flex items-center justify-center rounded-full border border-[#878C91] bg-white text-[#878C91] transition disabled:opacity-50"
+        :disabled="scrollPos === 0">
+        <svg width="20" height="20" fill="none" viewBox="0 0 20 20">
+          <path d="M12.5 15l-5-5 5-5" stroke="#878C91" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
       </button>
-      <div class="flex justify-center mt-4 gap-2">
-        <span v-for="i in maxPage+1" :key="i" class="w-2 h-2 rounded-full" :class="{'bg-primary': page === i-1, 'bg-gray': page !== i-1}"></span>
-      </div>
+      <button @click="scrollRight"
+        class="w-10 h-10 flex items-center justify-center rounded-full border border-[#878C91] bg-white text-[#878C91] transition disabled:opacity-50"
+        :disabled="scrollPos === maxScroll">
+        <svg width="20" height="20" fill="none" viewBox="0 0 20 20">
+          <path d="M7.5 5l5 5-5 5" stroke="#878C91" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const members = [
-  { name: 'Петин Сергей', role: 'CEO', photo: '/team/sergey.jpg' },
-  { name: 'Петин Сергей', role: 'Маркетинг и исследования', photo: '/team/sergey.jpg' },
-  { name: 'Петин Сергей', role: 'Backend-разработка', photo: '/team/sergey.jpg' },
-  { name: 'Петин Сергей', role: 'Frontend - разработка', photo: '/team/sergey.jpg' },
+  { photo: 'TeamSliderImg/Rectangle.svg' },
+  { photo: 'TeamSliderImg/Rectangle.svg' },
+  { photo: 'TeamSliderImg/Rectangle.svg' },
+  { photo: 'TeamSliderImg/Rectangle.svg' },
 ]
 
-const page = ref(0)
-const perPage = ref(4)
+const carousel = ref(null)
+const scrollPos = ref(0)
+const maxScroll = ref(0)
 
-const updatePerPage = () => {
-  if (window.innerWidth < 640) perPage.value = 1
-  else if (window.innerWidth < 1024) perPage.value = 2
-  else perPage.value = 4
+const updateScroll = () => {
+  if (carousel.value) {
+    scrollPos.value = carousel.value.scrollLeft
+    maxScroll.value = carousel.value.scrollWidth - carousel.value.clientWidth
+  }
 }
+
+const scrollLeft = () => {
+  if (carousel.value) {
+    carousel.value.scrollBy({ left: -carousel.value.clientWidth * 0.8, behavior: 'smooth' })
+    setTimeout(updateScroll, 300)
+  }
+}
+
+const scrollRight = () => {
+  if (carousel.value) {
+    carousel.value.scrollBy({ left: carousel.value.clientWidth * 0.8, behavior: 'smooth' })
+    setTimeout(updateScroll, 300)
+  }
+}
+
 onMounted(() => {
-  updatePerPage()
-  window.addEventListener('resize', updatePerPage)
+  updateScroll()
+  window.addEventListener('resize', updateScroll)
 })
-
-const maxPage = computed(() => Math.max(0, Math.ceil(members.length / perPage.value) - 1))
-const visibleMembers = computed(() => {
-  const start = page.value * perPage.value
-  return members.slice(start, start + perPage.value)
+onUnmounted(() => {
+  window.removeEventListener('resize', updateScroll)
 })
-const sliderStyle = computed(() => ({
-  transform: `translateX(-${page.value * 100}%)`
-}))
+</script>
 
-function prev() { if (page.value > 0) page.value-- }
-function next() { if (page.value < maxPage.value) page.value++ }
-</script> 
+<style scoped>
+@media (min-width: 768px) and (max-width: 1200px) {
+  .team-wrapper {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 32px !important;
+  }
+
+  .team-card {
+    max-width: 100% !important;
+    padding: 20px;
+  }
+
+  .team-img {
+    height: 460px !important;
+  }
+
+  .team-name {
+    font-size: 20px !important;
+  }
+
+  .team-role {
+    font-size: 16px !important;
+  }
+}
+</style>

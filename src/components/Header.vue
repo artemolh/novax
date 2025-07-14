@@ -1,53 +1,150 @@
 <template>
-  <header class="w-full bg-white shadow-sm py-3 px-4 flex items-center justify-between sticky top-0 z-50">
-    <div class="flex items-center gap-3">
-      <img src="/logo.svg" alt="boostim logo" class="h-9 w-9" />
-      <span class="font-bold text-xl tracking-tight">boostim</span>
-    </div>
-    <nav class="hidden md:flex gap-8 text-base font-medium">
-      <a href="#about" class="hover:text-primary transition">О нас</a>
-      <a href="#process" class="hover:text-primary transition">Структура работы</a>
-      <a href="#team" class="hover:text-primary transition">Команда</a>
-      <a href="#pricing" class="hover:text-primary transition">Цены</a>
-    </nav>
-    <div class="flex items-center gap-3">
-      <button class="hidden md:block border border-gray rounded-full px-5 py-2 text-sm font-medium hover:bg-primary hover:text-dark transition">Обсудить проект</button>
-      <div class="flex items-center gap-1 bg-gray rounded-full px-2 py-1 ml-2">
-        <button class="px-2 py-1 rounded-full text-xs font-semibold" :class="{'bg-primary text-dark': lang==='RU'}" @click="lang='RU'">RU</button>
-        <button class="px-2 py-1 rounded-full text-xs font-semibold" :class="{'bg-primary text-dark': lang==='UZ'}" @click="lang='UZ'">UZ</button>
-      </div>
-      <button class="md:hidden ml-2" @click="menuOpen = !menuOpen">
-        <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path stroke="#181A1B" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/></svg>
-      </button>
-    </div>
-    <transition name="fade">
-      <div v-if="menuOpen" class="fixed inset-0 bg-black/40 z-50 flex flex-col md:hidden">
-        <div class="bg-white w-3/4 h-full p-6 flex flex-col gap-6">
-          <button class="self-end mb-4" @click="menuOpen = false">
-            <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path stroke="#181A1B" stroke-width="2" d="M6 6l12 12M6 18L18 6"/></svg>
-          </button>
-          <a href="#about" class="py-2 text-lg font-medium" @click="menuOpen=false">О нас</a>
-          <a href="#process" class="py-2 text-lg font-medium" @click="menuOpen=false">Структура работы</a>
-          <a href="#team" class="py-2 text-lg font-medium" @click="menuOpen=false">Команда</a>
-          <a href="#pricing" class="py-2 text-lg font-medium" @click="menuOpen=false">Цены</a>
-          <button class="mt-6 border border-gray rounded-full px-5 py-2 text-base font-medium hover:bg-primary hover:text-dark transition">Обсудить проект</button>
+  <header class="w-full bg-white overflow-hidden rounded-[10px] sticky top-0 z-50 pr-0">
+    <div class="w-full header-container flex items-center justify-between">
+
+      <!-- ЛОГО + НАВИГАЦИЯ -->
+      <div class="flex items-center gap-6 xl:gap-10 2xl:gap-12">
+        <div class="flex items-center gap-2 xl:gap-3 2xl:gap-4">
+          <img src="../components/HeaderImage/headerIcon.svg" alt="boostim logo"
+            class="w-[50px] h-[50px] xl:w-[60px] xl:h-[60px] 2xl:w-[70px] 2xl:h-[70px]" />
+          <span class="font-medium text-[22px] xl:text-[24px] 2xl:text-[26px] text-black">
+            boostim
+          </span>
         </div>
+
+        <nav
+          class="hidden md:flex gap-6 xl:gap-8 2xl:gap-10 text-[16px] xl:text-[18px] 2xl:text-[20px] mb-0 font-medium text-black">
+          <a href="/" class="hover:opacity-80 transition text-black">{{ t('header.about') }}</a>
+          <a href="#process" class="hover:opacity-80 transition text-black">{{ t('header.structure') }}</a>
+          <a href="#team" class="hover:opacity-80 transition text-black">{{ t('header.team') }}</a>
+          <a href="#pricing" class="hover:opacity-80 transition text-black">{{ t('header.pricing') }}</a>
+        </nav>
       </div>
-    </transition>
+
+      <!-- КНОПКИ -->
+      <div class="flex items-center gap-3 ml-auto pr-6 button-group">
+        <button
+          class="hidden md:block border border-[#C0C0C0] rounded-full px-6 h-[50px] text-sm font-medium hover:bg-[#F5F5F5] transition"
+          style="color: #878C91;">
+          {{ t('header.contact') }}
+        </button>
+
+        <div class="flex items-center border border-[#C0C0C0] rounded-full h-[50px] overflow-hidden">
+          <button class="h-full px-5 text-sm font-medium transition cursor-pointer rounded-full"
+            :class="locale === 'ru' ? 'bg-[#99EA48] text-white' : 'bg-transparent text-[#878C91]'"
+            @click="changeLang('ru')">
+            RU
+          </button>
+          <button class="h-full px-5 text-sm font-medium transition cursor-pointer rounded-full"
+            :class="locale === 'uz' ? 'bg-[#99EA48] text-white' : 'bg-transparent text-[#878C91]'"
+            @click="changeLang('uz')">
+            UZ
+          </button>
+        </div>
+
+        <button class="md:hidden ml-2 burger-menu" @click="menuOpen = !menuOpen">
+          <svg width="28" height="28" fill="none" viewBox="0 0 24 24">
+            <path stroke="#181A1B" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
   </header>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-const lang = ref('RU')
+import { ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+
 const menuOpen = ref(false)
+const { locale, t } = useI18n()
+
+const changeLang = (lang) => {
+  locale.value = lang
+  document.documentElement.setAttribute('lang', lang)
+  localStorage.setItem('lang', lang)
+}
+
+// при старте — подхватываем язык из localStorage
+watch(locale, (lang) => {
+  document.documentElement.setAttribute('lang', lang)
+}, { immediate: true })
+
+const savedLang = localStorage.getItem('lang')
+if (savedLang && savedLang !== locale.value) {
+  locale.value = savedLang
+}
 </script>
 
+
+
 <style scoped>
-.fade-enter-active, .fade-leave-active {
+.header-container {
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (min-width: 1280px) {
+  .header-container {
+    height: 100px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .header-container {
+    height: 110px;
+  }
+}
+
+@media (min-width: 1024px) {
+  header {
+    padding-right: 1rem !important;
+
+  }
+}
+
+@media (max-width: 900px) and (min-width: 758px) {
+  nav {
+    display: none !important;
+  }
+
+  .button-group {
+    margin-left: auto;
+    margin-right: 0;
+    justify-content: flex-end;
+  }
+
+  .burger-menu {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .button-group {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  /* Скрываем бургер только на мобилке */
+  .burger-menu {
+    display: none !important;
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.2s;
 }
-.fade-enter-from, .fade-leave-to {
+
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
-</style> 
+</style>

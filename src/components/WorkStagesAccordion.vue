@@ -1,27 +1,46 @@
 <template>
-  <section class="w-full my-12" id="process">
-    <div class="bg-white rounded-2xl shadow p-6 md:p-10 flex flex-col md:flex-row gap-8">
+  <div id="process"></div>
+  <section class="w-full bg-white py-12 px-10 md:px-10 mt-20 rounded-3xl p-0">
+    <div class="flex flex-col lg:flex-row gap-12 items-stretch">
       <!-- Левая колонка -->
-      <div class="md:w-1/2 flex flex-col justify-between mb-6 md:mb-0">
-        <h2 class="font-bold text-2xl mb-4">Структура работы над сайтом</h2>
-        <p class="text-sm text-gray-700 mb-6">Работаем по чёткой системе: изучаем бизнес, ставим цели, проектируем структуру, создаём дизайн и реализуем его в разработке. Перед запуском тщательно тестируем сайт и настраиваем все технические детали. После публикации остаёмся на связи — обеспечиваем поддержку и развитие. Без хаоса, только понятные шаги и результат</p>
-        <button class="border border-gray rounded-full px-5 py-2 text-base font-medium hover:bg-primary hover:text-dark transition w-max">Обсудить проект</button>
+      <div class="w-full lg:w-1/2 flex flex-col justify-start pt-4">
+        <h2 class="font-medium text-[35px] leading-tight max-w-[340px] mb-4">
+          {{ t('process.title') }}
+        </h2>
+        <p class="text-sm text-[#878C91] mb-6 mt-10 lg:mt-40 ml-0 leading-relaxed">
+          {{ t('process.description') }}
+        </p>
+        <button
+          class="bg-[#F5F5F5] text-[#878C91] hover:bg-[rgba(153,234,72,0.3)] border border-[#878C91] rounded-full px-6 py-2 mt-10 text-base font-medium w-max">
+          {{ t('process.button') }}
+        </button>
       </div>
-      <!-- Правая колонка: Аккордеон -->
-      <div class="md:w-1/2">
+
+      <!-- Правая колонка -->
+      <div class="w-full md:w-1/2 pt-3">
         <ul>
-          <li v-for="(stage, idx) in stages" :key="stage.title" class="mb-2">
-            <button @click="toggle(idx)" class="w-full flex items-center justify-between py-3 px-4 rounded-lg border border-gray bg-light hover:bg-primary/10 transition text-left">
-              <span>
-                <span :class="'font-bold mr-2 ' + stage.color">{{ stage.num }} этап</span>
-                <span class="font-semibold">{{ stage.title }}</span>
+          <li
+            v-for="(stage, idx) in stages"
+            :key="stage.title"
+            class="border-t border-b border-gray-200 text-left transition-all"
+          >
+            <div @click="toggle(idx)" class="flex items-start justify-between cursor-pointer py-4 group">
+              <div>
+                <p class="text-[17px] leading-none font-medium text-[#99EA48] mb-1">
+                  {{ stage.num }}
+                </p>
+                <p class="text-[17px] font-medium text-black  transition leading-snug">
+                  {{ stage.title }}
+                </p>
+              </div>
+              <span class="ml-2 mt-2 text-xl font-medium text-black">
+                {{ openIdx === idx ? '−' : '+' }}
               </span>
-              <span>
-                <svg v-if="openIdx === idx" width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="#181A1B" stroke-width="2" d="M6 15l6-6 6 6"/></svg>
-                <svg v-else width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="#181A1B" stroke-width="2" d="M6 9l6 6 6-6"/></svg>
-              </span>
-            </button>
-            <div v-if="openIdx === idx" class="px-4 pb-4 text-sm text-gray-700 animate-fade-in">
+            </div>
+            <div
+              v-if="openIdx === idx"
+              class="pb-5 pr-4 text-[15px] text-[#9CA3AF] animate-fade-in leading-relaxed"
+            >
               {{ stage.desc }}
             </div>
           </li>
@@ -32,49 +51,44 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { locale, t, getLocaleMessage } = useI18n()
+
 const openIdx = ref(0)
-const toggle = idx => openIdx.value = openIdx.value === idx ? -1 : idx
-const stages = [
-  {
-    num: '01',
-    color: 'text-primary',
-    title: 'Анализ и постановка задач',
-    desc: 'Проводим интервью и брифинг. Изучаем бизнес, аудиторию, цели и конкурентов. Формируем стратегию и определяем, каким должен быть сайт, чтобы решать конкретные задачи.'
-  },
-  {
-    num: '02',
-    color: 'text-orange-400',
-    title: 'Проектирование структуры',
-    desc: 'Создаём архитектуру сайта, продумываем логику и структуру страниц, чтобы пользователю было удобно.'
-  },
-  {
-    num: '03',
-    color: 'text-accent',
-    title: 'UI/UX-дизайн',
-    desc: 'Разрабатываем современный дизайн, который выделяет ваш бизнес и делает сайт удобным.'
-  },
-  {
-    num: '04',
-    color: 'text-primary',
-    title: 'Фронтенд- и бэкенд-разработка',
-    desc: 'Воплощаем дизайн в коде, реализуем все функции, интеграции и адаптивность.'
-  },
-  {
-    num: '05',
-    color: 'text-accent',
-    title: 'Тестирование и подготовка к запуску',
-    desc: 'Проверяем сайт на всех устройствах, устраняем баги, настраиваем аналитику и готовим к публикации.'
-  },
-]
+const toggle = (idx) => {
+  openIdx.value = openIdx.value === idx ? -1 : idx
+}
+
+const stages = computed(() => {
+  const messages = getLocaleMessage(locale.value)
+  return messages?.process?.stages || []
+})
+
+// Автоустановка lang на <html>
+watch(locale, (lang) => {
+  document.documentElement.setAttribute('lang', lang)
+}, { immediate: true })
+
+const savedLang = localStorage.getItem('lang')
+if (savedLang && savedLang !== locale.value) {
+  locale.value = savedLang
+}
 </script>
 
 <style scoped>
 @keyframes fade-in {
-  from { opacity: 0; transform: translateY(-8px); }
-  to { opacity: 1; transform: none; }
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 .animate-fade-in {
-  animation: fade-in 0.2s;
+  animation: fade-in 0.2s ease-out;
 }
-</style> 
+</style>
